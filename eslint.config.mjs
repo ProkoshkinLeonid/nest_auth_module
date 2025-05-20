@@ -27,7 +27,6 @@ export default tseslint.config(
          semi: ["error", "never"],
          quotes: ["error", "double"],
          "object-curly-spacing": ["error", "always"],
-         indent: ["error", 3],
          "no-console": ["error"],
       },
    },

@@ -3,15 +3,27 @@ import { AppController } from "./app.controller"
 import { AppService } from "./app.service"
 import { ConfigModule } from "@nestjs/config"
 import { AuthModule } from "./auth/auth.module"
-import { UsersModule } from "./users/users.module"
+import { UserModule } from "./users/user.module"
+import { TypeOrmModule } from "@nestjs/typeorm"
+import { User } from "./users/user.entity"
 
 @Module({
    imports: [
+      TypeOrmModule.forRoot({
+         type: "postgres", // или 'mysql'
+         host: "localhost",
+         port: 5432,
+         username: "postgres",
+         password: "your_password",
+         database: "nest_db",
+         entities: [User], // Подключаем сущности
+         synchronize: true, // Автосоздание таблиц (только для разработки!)
+      }),
       ConfigModule.forRoot({
          envFilePath: [".env.development", ".env.production"],
       }),
       AuthModule,
-      UsersModule,
+      UserModule,
    ],
    controllers: [AppController],
    providers: [AppService],
